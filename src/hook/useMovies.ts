@@ -1,5 +1,5 @@
 import {IMovie} from "../types/movie.ts";
-import {useState} from "react";
+import {useRef, useState} from "react";
 import {getMoviesApi} from "../services/getMovies.ts";
 
 
@@ -7,13 +7,17 @@ export function useMovies() {
   const [responseMovies, setResponseMovies] = useState<IMovie[]>([])
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
+  const previousSearch = useRef('')
 
   const getMovies = (search) => {
+    if (search === previousSearch.current) return
+
     setLoading(true)
     setError(null)
     getMoviesApi(search)
       .then(response => {
         setResponseMovies(response)
+        previousSearch.current = search
       })
       .catch(error => {
         setError(`error: ${error.message}`)
