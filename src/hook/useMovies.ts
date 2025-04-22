@@ -9,13 +9,14 @@ export function useMovies() {
   const [loading, setLoading] = useState<boolean>(false)
   const previousSearch = useRef('')
 
-  const getMovies = (search) => {
+  const getMovies = (search: string) => {
     if (search === previousSearch.current) return
 
     setLoading(true)
     setError(null)
     getMoviesApi(search)
       .then(response => {
+        if (!response) return
         setResponseMovies(response)
         previousSearch.current = search
       })
