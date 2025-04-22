@@ -1,18 +1,27 @@
-import {IMovie, IMovieApi} from "../types/movie.ts";
-import responseMovies from "../mocks/results.json";
+import {IMovie} from "../types/movie.ts";
+import {useState} from "react";
+import {getMoviesApi} from "../services/getMovies.ts";
 
-const mappedMovies = (moviesFromApi: IMovieApi[]): IMovie[] => (
-  moviesFromApi.map((movie): IMovie => ({
-    id: movie.imdbID,
-    title: movie.Title,
-    year: movie.Year,
-    image: movie.Poster,
-    type: movie.Type
-  }))
-)
 
 export function useMovies() {
-  const movies = mappedMovies(responseMovies.Search)
+  const [responseMovies, setResponseMovies] = useState<IMovie[]>([])
+  const [error, setError] = useState<string | null>(null)
+  const [loading, setLoading] = useState<boolean>(false)
 
-  return { movies }
+  const getMovies = (search) => {
+    setLoading(true)
+    setError(null)
+    getMoviesApi(search)
+      .then(response => {
+        setResponseMovies(response)
+      })
+      .catch(error => {
+        setError(`error: ${error.message}`)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+  }
+
+  return {responseMovies, getMovies, movieError: error, loading}
 }

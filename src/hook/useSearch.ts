@@ -1,10 +1,16 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 
 export function useSearch() {
   const [search, setSearch] = useState<string>('')
   const [error, setError] = useState<string | null>('')
+  const isFirstInput = useRef(true)
 
   useEffect(() => {
+    if (isFirstInput.current) {
+      isFirstInput.current = search === ''
+      return
+    }
+
     if (search === '') {
       setError('Please enter a search term')
       return

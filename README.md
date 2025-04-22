@@ -1,8 +1,7 @@
 # Movie Search
-You can see the review here [preview](https://react-technical-test-movie-search.vercel.app/)
-
+👉 You can see the review here [preview](https://react-technical-test-movie-search.vercel.app/) 👈
 ### About
-This is a technical test inspired by challenge from midudev [review here](https://youtu.be/GOEiMwDJ3lc?si=nJM_UMRdMoaDRuz4)
+This is a technical test inspired by a challenge from midudev [review here](https://youtu.be/GOEiMwDJ3lc?si=nJM_UMRdMoaDRuz4)
 
 ### Test
 ```

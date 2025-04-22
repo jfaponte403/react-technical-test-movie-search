@@ -6,9 +6,9 @@ interface IMovieProps {
 
 export function ListOfMovies({ movies }: IMovieProps) {
   return (
-    <ul>
+    <ul className="movies">
       {movies.map(movie => (
-        <li key={movie.id}>
+        <li className="movie" key={movie.id}>
           <img src={movie.image} alt={movie.title}/>
           <h2>{movie.title}</h2>
           <p>{movie.year}</p>
