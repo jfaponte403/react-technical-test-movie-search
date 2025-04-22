@@ -4,7 +4,7 @@ interface IMovieProps {
   movies: IMovie[]
 }
 
-export function ListOfMovies({ movies }: IMovieProps) {
+export function ListOfMovies({movies}: IMovieProps) {
   return (
     <ul className="movies">
       {movies.map(movie => (
@@ -24,8 +24,8 @@ export function NoMovies() {
   )
 }
 
-export function Movies({ movies }: IMovieProps) {
+export function Movies({movies}: IMovieProps) {
   const hasMovies = movies.length > 0
 
-  return hasMovies ? <ListOfMovies movies={movies} /> : <NoMovies />
+  return hasMovies ? <ListOfMovies movies={movies}/> : <NoMovies/>
 }

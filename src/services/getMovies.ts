@@ -1,17 +1,16 @@
-import {mappedMovies} from "../utils/mappedMovies.ts";
-import {IMovie} from "../types/movie.ts";
+import { mappedMovies } from '../utils/mappedMovies.ts';
+import { IMovie } from '../types/movie.ts';
 
-const API_KEY = import.meta.env.VITE_API_KEY
-const API_URL = import.meta.env.VITE_API_URL
+const API_KEY = import.meta.env.VITE_API_KEY;
+const API_URL = import.meta.env.VITE_API_URL;
 
-export async function getMoviesApi(search: string): Promise<IMovie[] | null>{
-  if (search === '') return null
+export async function getMoviesApi(search: string): Promise<IMovie[] | null> {
+  if (search === '') return null;
   try {
-    const response = await fetch(`${API_URL}/?apikey=${API_KEY}&s=${search}`)
-    const data = await response.json()
-    return mappedMovies(data.Search)
-
+    const response = await fetch(`${API_URL}/?apikey=${API_KEY}&s=${search}`);
+    const data = await response.json();
+    return mappedMovies(data.Search);
   } catch (e) {
-    throw new Error(`Error fetching movies: ${e}`)
+    throw new Error(`Error fetching movies: ${e}`);
   }
 }
