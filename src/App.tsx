@@ -4,7 +4,8 @@ import { Movies } from './components/ListOfMovies.tsx';
 import { useMovies } from './hook/useMovies.ts';
 import { useSearch } from './hook/useSearch.ts';
 import * as React from 'react';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
+import debounce from 'just-debounce-it';
 
 export function App() {
   const [sort, setSort] = useState<boolean>(false);
@@ -13,8 +14,16 @@ export function App() {
   });
   const { search, error, setSearch } = useSearch();
 
+  const debouncedGetMovies = useMemo(() => {
+    return debounce((search: string) => {
+      getMovies(search);
+    }, 300);
+  }, [getMovies]);
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(event.target.value);
+    const newSearch = event.target.value;
+    setSearch(newSearch);
+    debouncedGetMovies(newSearch);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
